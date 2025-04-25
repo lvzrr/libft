@@ -81,25 +81,22 @@ t-san: $(NAME)
 	done
 	$(SEP)
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
-		echo -e "\n\033[35m==> Running $$bin (aSan/uSan/lSan)\033[0m\n"; \
+		echo -e "\n\033[35m==> Running $$bin\033[0m\n"; \
 		timeout 0.7s $$bin || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
 	done
 	$(SEP)
 
 t-val: $(NAME)
 	@mkdir -p $(OBJDIR)/$(TESTDIR)
+	@echo -e "\033[34m==> Looking for leaks...\033[0m"
 	@for test in $(TEST_SRCS); do \
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
-		echo -e "\033[34m==> Compiling $$name\033[0m"; \
 		$(CC) $$test $(FLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
 	done
-	$(SEP)
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
-		echo -e "\n\033[35m==> Valgrind $$bin\033[0m\n"; \
-		valgrind --leak-check=full $$bin || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
+		valgrind --quiet --error-exitcode=42 --leak-check=full $$bin > /dev/null || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
 	done
-	$(SEP)
 
 t-bench:
 	@mkdir -p $(OBJDIR)/tests
@@ -139,7 +136,7 @@ test:
 	@$(MAKE) t-bench
 
 apitest: banner
-	@$(MAKE) t-bench
+	norminette $(SRCS) $(BONUS_SRCS)
 	@$(MAKE) t-san
 	@$(MAKE) t-val
 
@@ -163,3 +160,4 @@ banner:
 
 
 .PHONY: all clean fclean re bonus install full test t-san t-val t-bench
+MAKEFLAGS += --no-print-directory
