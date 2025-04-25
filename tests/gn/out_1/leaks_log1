@@ -1,0 +1,13 @@
+==235139== 1 bytes in 1 blocks are still reachable in loss record 1 of 2
+==235139==    at 0x48457A8: malloc (vg_replace_malloc.c:446)
+==235139==    by 0x109721: ft_strdup (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139==    by 0x10955C: get_next_line (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139==    by 0x109207: main (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139== 
+==235139== 2 bytes in 1 blocks are still reachable in loss record 2 of 2
+==235139==    at 0x48457A8: malloc (vg_replace_malloc.c:446)
+==235139==    by 0x10942B: read_buffer (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139==    by 0x1095A6: get_next_line (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139==    by 0x109207: main (in /home/lvx/clase/42/libft/tests/gn/t1.esq)
+==235139== 
+==235139== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

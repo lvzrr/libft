@@ -1,0 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tstr.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 18:58:03 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/04/23 19:03:02 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#ifndef TSTR_H
+# define TSTR_H
+# include <sys/types.h>
+# include <stdlib.h>
+# include "mem.h"
+# include "alloc.h"
+# include "cstr.h"
+
+typedef struct s_string
+{
+	size_t	len;
+	size_t	alloc_size;
+	char	*data;
+}	t_string;
+
+t_string		ft_tstr_from_cstr(const char *str);
+char			*ft_tstr_dup_cstr(t_string *str);
+t_string		ft_tstr_new(ssize_t len);
+void			ft_tstr_pushstr(t_string *str, const char *s);
+void			ft_tstr_push(t_string *str, char c);
+void			ft_tstr_free(t_string *str);
+const char		*ft_tstr_borrow(const t_string *str);
+void			ft_tstr_clear(t_string *s);
+void			ft_tstr_fit(t_string *str);
+ssize_t			ft_tstr_instr(const t_string *h, const char *n);
+void			ft_tstr_trim(t_string *str, const char *set);
+void			ft_tstr_reserve(t_string *str, size_t n);
+char			ft_tstr_pop(t_string *str);
+void			ft_tstr_repeat(t_string *str, const char *chunk,
+					size_t times);
+void			ft_tstr_insert(t_string *str, const char *insert,
+					size_t position);
+#endif
