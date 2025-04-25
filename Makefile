@@ -22,13 +22,14 @@ TESTFLAGS	:=	-Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wcast-al
 			-fsanitize=address -fsanitize=undefined -fsanitize=leak -L. -lft -Iinclude
 AR		:=	ar rcs
 OBJDIR		:=	build
-DIRS		:=	tstr cstr alloc in is mem num out
+DIRS		:=	vec tstr cstr alloc in is mem num out
 TESTDIR		:=	tests
 BONUS		:=	lst
 BONUS_SRCS	:=	$(foreach dir, $(BONUS), $(wildcard $(dir)/*.c))
 BONUS_OBJS	:=	$(patsubst %.c, $(OBJDIR)/%.o, $(BONUS_SRCS))
 
-TESTS		:=	$(wildcard $(TESTDIR)/*.c)
+TEST_SRCS	:=	$(wildcard $(TESTDIR)/*_tests.c)
+TEST_BINS	:=	$(patsubst $(TESTDIR)/%.c,$(OBJDIR)/$(TESTDIR)/%,$(TEST_SRCS))
 TEST_BIN	:=	a.out
 
 SRCS		:=	$(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
@@ -70,23 +71,34 @@ fclean: clean
 
 re: fclean full
 
-t-san:
-	$(SEP)
+t-san: $(NAME)
 	@mkdir -p $(OBJDIR)/$(TESTDIR)
-	$(CC) $(TESTS) -D BIG_TEST=1 $(FLAGS) -L. -lft -Iinclude -O3 -o $(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
-	ulimit -v 1500 ./$(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
-	$(CC) $(TESTS) -D BIG_TEST=1 $(TESTFLAGS) -o $(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
+	@for test in $(TEST_SRCS); do \
+		name=$$(basename $$test .c); \
+		out=$(OBJDIR)/$(TESTDIR)/$$name; \
+		echo -e "\033[34m==> Compiling $$name\033[0m"; \
+		$(CC) $$test -D BIG_TEST=1 $(TESTFLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
+	done
 	$(SEP)
-	@echo -e "\033[1;35m*===== JAICASTR's TEST SUITE (aSan uSan lSan) =====*\033[0m"
-	timeout 0.7s ./$(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
+	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
+		echo -e "\n\033[35m==> Running $$bin (aSan/uSan/lSan)\033[0m\n"; \
+		timeout 0.7s $$bin || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
+	done
+	$(SEP)
 
-t-val:
-	$(SEP)
+t-val: $(NAME)
 	@mkdir -p $(OBJDIR)/$(TESTDIR)
-	$(CC) $(FLAGS) $(TESTS) -L. -lft -Iinclude -O3 -o $(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
+	@for test in $(TEST_SRCS); do \
+		name=$$(basename $$test .c); \
+		out=$(OBJDIR)/$(TESTDIR)/$$name; \
+		echo -e "\033[34m==> Compiling $$name\033[0m"; \
+		$(CC) $$test $(FLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
+	done
 	$(SEP)
-	@echo -e "\033[35m*===== JAICASTR's TEST SUITE (VALGRIND) =====*\033[0m"
-	@valgrind --leak-check=full ./$(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
+	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
+		echo -e "\n\033[35m==> Valgrind $$bin\033[0m\n"; \
+		valgrind --leak-check=full $$bin || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
+	done
 	$(SEP)
 
 t-bench:
@@ -125,6 +137,11 @@ test:
 	@$(MAKE) t-san
 	@$(MAKE) t-val
 	@$(MAKE) t-bench
+
+apitest: banner
+	@$(MAKE) t-bench
+	@$(MAKE) t-san
+	@$(MAKE) t-val
 
 banner:
 	@printf "\n\033[35m"
