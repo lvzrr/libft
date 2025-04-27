@@ -32,7 +32,7 @@ extern t_map	*g_table;
 
 void			*ft_alloc(size_t size);
 void			*ft_talloc(size_t size, const char *t);
-void			*ft_talloc_raw(size_t size, const char *t);
+void			*ft_talloc_raw(size_t size, const char *t, int s);
 void			ft_free(void **ptr);
 void			ft_gc(void);
 void			*ft_calloc(size_t n, size_t size);

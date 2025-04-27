@@ -13,9 +13,12 @@
 
 void	ft_tstr_free(t_string *str)
 {
+	void	*tmp;
+
 	if (str->data)
 	{
-		free(str->data);
+		tmp = str->data;
+		ft_free(&tmp);
 		str->data = NULL;
 	}
 	str->len = 0;

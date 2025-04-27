@@ -40,7 +40,7 @@ void	*ft_talloc(size_t size, const char *t)
 	return (new_alloc);
 }
 
-void	*ft_talloc_raw(size_t size, const char *t)
+void	*ft_talloc_raw(size_t size, const char *t, int skip)
 {
 	void		*new_alloc;
 
@@ -49,7 +49,7 @@ void	*ft_talloc_raw(size_t size, const char *t)
 	new_alloc = malloc(size);
 	if (!new_alloc)
 		return (NULL);
-	if (USE_GC)
+	if (USE_GC && !skip)
 	{
 		if (!t || !*t)
 			t = "(untagged)";

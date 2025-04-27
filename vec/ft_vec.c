@@ -21,7 +21,8 @@ t_vec	ft_vec(size_t alloc_size, size_t sizeof_type)
 		return ((t_vec){0});
 	out.size = 0;
 	out.alloc_size = alloc_size;
-	out.data = malloc(alloc_size * sizeof_type);
+	out.data = ft_talloc_raw(alloc_size * sizeof_type,
+			"(vec init)", 1);
 	if (!out.data)
 		return ((t_vec){0});
 	out.sizeof_type = sizeof_type;
