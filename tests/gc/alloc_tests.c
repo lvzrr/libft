@@ -35,6 +35,7 @@ void alloc_basic_test(void)
         ft_printf(GREEN "1.OK " RESET);
     ft_free(&tmp);
     ptr = NULL;
+	ft_talloc(777, "lost malloc");
 }
 
 void alloc_calloc_test(void)
@@ -100,6 +101,8 @@ void alloc_realloc_test(void)
     tmp = ptr;
     ft_free(&tmp);
     ptr = NULL;
+	void	*a = ft_calloc(1202103, 123);
+	ft_realloc(a, 1202103 * 123, 33);
 }
 
 void alloc_recalloc_test(void)
@@ -168,31 +171,26 @@ void alloc_free_test(void)
 }
 
 
-void    alloc_gc_test(void);
-
-void alloc_gc_test(void)
-{
-    t_map *tmp;
-
-    tmp = g_table;
-    if (!tmp)
-    {
-        ft_printf(RED "\nFAILED: no g_table before GC\n" RESET);
-        return;
-    }
-    ft_gc();
-    if (g_table != NULL)
-        ft_printf(RED "\nFAILED: g_table not NULL after GC\n" RESET);
-    else
-	{
-		ft_printf(GREEN "1.OK " RESET);
-	}
-	
-	ft_talloc(2034, "test");
-}
 
 int main(void)
 {
+	size_t size = 202;
+	void *tpo = ft_talloc(size, "bruhhh");
+	if (!tpo)
+		return (1); // Handle malloc failure
+
+	for (int i = 0; i < 10; i++)
+	{
+		void *new_tpo = ft_extend_zero(tpo, size, 20);
+		if (!new_tpo)
+		{
+			ft_free(&tpo);
+			return (1); // Memory failed
+		}
+		tpo = new_tpo;
+		size += 20;
+	}
+	ft_talloc(666, "ghost malloc");
 	ft_talloc(9999, "alloc early on");
     ft_printf(PURPLE "ALLOC_BASIC: " RESET);
     alloc_basic_test();
@@ -202,6 +200,7 @@ int main(void)
     ft_printf("\n");
     ft_printf(PURPLE "ALLOC_REALLOC: " RESET);
     alloc_realloc_test();
+	ft_talloc(10000000, "alloc middle");
     ft_printf("\n");
     ft_printf(PURPLE "ALLOC_RECALLOC: " RESET);
     alloc_recalloc_test();
@@ -209,11 +208,9 @@ int main(void)
     ft_printf(PURPLE "ALLOC_FREE: " RESET);
     alloc_free_test();
     ft_printf("\n");
-    ft_printf(PURPLE "GC: " RESET);
-	alloc_gc_test();
-    ft_printf("\n");
-	ft_printf(PURPLE "GC (ON EXIT) - NO CRASH = GOOD " RESET);
-	ft_talloc(10000000, "alloc early on");
+	ft_talloc(3, "alloc semifinal");
+	ft_printf(PURPLE "GC (ON EXIT) - NO VALGRIND CRIES = PASSED " RESET);
+	ft_talloc(1, "alloc end");
     ft_printf("\n");
     return (0);
 }

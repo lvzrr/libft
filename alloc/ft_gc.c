@@ -23,7 +23,7 @@ static void	ft_gc_debug(void)
 	{
 		mem = &((t_mem *)g_table->values.data)[i];
 		str = &((t_string *)g_table->tags.data)[i];
-		ft_printf("[GC DEBUG] ptr: %p, size: %u, tag: %s\n",
+		ft_printf("[GC JOB] ptr: %p, size: %u, tag: %s\n",
 			mem->ptr, mem->size, str->data);
 		i++;
 	}
