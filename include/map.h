@@ -16,24 +16,10 @@
 #  define MAP_SIZE 256
 # endif
 
+# include "structs.h"
 # include <sys/types.h>
 # include <stdarg.h>
 # include "vec.h"
-
-typedef struct s_mem
-{
-	void			*ptr;
-	size_t			size;
-	unsigned int	freed;
-}	t_mem;
-
-typedef struct s_map
-{
-	t_vec		keys;
-	t_vec		values;
-	t_vec		tags;
-}	t_map;
-
 # include "tstr.h"
 # include "mem.h"
 

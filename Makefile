@@ -43,7 +43,7 @@ SEP = @echo -e "\n\033[1;34m═════════════════�
 
 full: banner all bonus
 	$(SEP)
-	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
+	@norminette $(SRCS) $(BONUS_SRCS) $(wildcard include/*.h) | grep -q 'Error' || echo "norminette OK"
 	$(SEP)
 
 $(OBJDIR)/%.o: %.c
@@ -144,7 +144,7 @@ test:
 
 apitest:
 	@$(MAKE) install GC=0
-	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
+	@norminette $(SRCS) $(BONUS_SRCS) $(wildcard include/*.h) | grep -q 'Error' || echo "norminette OK"
 	@$(MAKE) t-san
 	@$(MAKE) t-val
 	@$(MAKE) install GC=1

@@ -13,16 +13,10 @@
 # define TSTR_H
 # include <sys/types.h>
 # include <stdlib.h>
+# include "structs.h"
 # include "mem.h"
 # include "alloc.h"
 # include "cstr.h"
-
-typedef struct s_string
-{
-	size_t	len;
-	size_t	alloc_size;
-	char	*data;
-}	t_string;
 
 t_string		ft_tstr_from_cstr(const char *str);
 char			*ft_tstr_dup_cstr(t_string *str);

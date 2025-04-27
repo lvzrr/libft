@@ -13,16 +13,7 @@
 # define VEC_H
 
 # include <stddef.h>
-
-typedef struct s_vec
-{
-	size_t	size;
-	void	*data;
-	size_t	alloc_size;
-	size_t	sizeof_type;
-}	t_vec;
-
-
+# include "structs.h"
 # include "map.h"
 # include "mem.h"
 
