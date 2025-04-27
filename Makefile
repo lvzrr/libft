@@ -45,7 +45,7 @@ full: banner all bonus
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@echo -e -n "\033[34m==> Compiling...\r\033[0m"
-	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	@$(CC) $(FLAGS) -D USE_GC=0 -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
 	@$(AR) $@ $^
@@ -73,7 +73,7 @@ t-san: $(NAME)
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
 		echo -e "\033[34m==> Compiling $$name\033[0m"; \
-		$(CC) $$test -D BIG_TEST=1 $(TESTFLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
+		$(CC) $$test -D BIG_TEST=1 -D USE_GC=0 $(TESTFLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
 	done
 	$(SEP)
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
@@ -88,7 +88,7 @@ t-val: $(NAME)
 	@for test in $(TEST_SRCS); do \
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
-		$(CC) $$test $(FLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
+		$(CC) $$test $(FLAGS) -D USE_GC=0 -Iinclude -L. -lft -o $$out || exit 1; \
 	done
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
 		valgrind --quiet --error-exitcode=42 --leak-check=full $$bin > /dev/null || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
@@ -107,6 +107,11 @@ t-bench:
 	$(SEP)
 	@echo -e "\033[35m*===== t_string api vs std::string (C++) =====*\033[0m"
 	./$(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
+
+t-leaks:
+	$(SEP)
+	@$(MAKE) -C ./tests/gc/
+	$(SEP)
 
 t-printf: fclean clean
 	$(SEP)
@@ -129,12 +134,14 @@ test:
 	@$(MAKE) t-gnl
 	@$(MAKE) t-san
 	@$(MAKE) t-val
+	@$(MAKE) t-leaks
 	@$(MAKE) t-bench
 
 apitest: banner
 	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
 	@$(MAKE) t-san
 	@$(MAKE) t-val
+	@$(MAKE) t-leaks
 
 banner:
 	@printf "\n\033[35m"
