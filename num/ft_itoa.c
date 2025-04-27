@@ -41,7 +41,7 @@ char	*ft_itoa(int n)
 
 	cc = count(n);
 	neg = 1;
-	out = malloc(cc + 1);
+	out = ft_talloc(cc + 1, "(itoa)");
 	if (!out)
 		return (NULL);
 	if (n < 0)

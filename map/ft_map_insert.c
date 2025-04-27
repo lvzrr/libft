@@ -20,6 +20,8 @@ int	ft_map_insert(void *ptr, size_t size, t_map *map, ...)
 
 	if (!ptr || !map || map->keys.size >= map->keys.alloc_size)
 		return (-1);
+	if (ft_map_lookup(map, (size_t)ptr >> 4))
+		return (-1);
 	val.ptr = ptr;
 	val.freed = 0;
 	val.size = size;

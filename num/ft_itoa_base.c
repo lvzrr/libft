@@ -68,7 +68,7 @@ char	*ft_itoa_base(int n, char *base)
 		return (NULL);
 	if (n == 0)
 		return (ft_strdup("0"));
-	out = malloc(count(n, blen) + 1);
+	out = ft_talloc(count(n, blen) + 1, "(itoa_base)");
 	if (!out)
 		return (NULL);
 	c = count(n, blen);
