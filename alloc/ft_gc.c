@@ -32,7 +32,8 @@ static void	ft_gc_debug(void)
 			tombs++;
 		i++;
 	}
-	ft_printf("\n[GC BURIAL] Deleted at least: %u entries manually (RIP).\n", tombs);
+	ft_printf("\n[GC BURIAL] Deleted at least: %u entries manually (RIP).\n",
+		tombs);
 }
 
 __attribute__((destructor))
