@@ -18,8 +18,6 @@ static void	ft_gc_debug(void)
 	t_string	*str;
 	size_t		i;
 
-	if (!g_table)
-		return ;
 	i = 0;
 	while (i < g_table->keys.size)
 	{

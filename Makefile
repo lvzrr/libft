@@ -11,15 +11,19 @@
 # **************************************************************************** #
 
 NAME		:=	libft.a
-CC		:=	cc
+CC			:=	cc
+GC			?= 0
+
 FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
 			-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
-			-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
+			-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3 \
+			$(if $(filter 1,$(GC)),-D USE_GC=1,-D USE_GC=0)
 TESTFLAGS	:=	-Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wcast-align -Wcast-qual \
 			-Wfloat-equal -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations \
 			-Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -fno-common \
 			-fstrict-aliasing -fstack-protector-strong -fPIC -D_FORTIFY_SOURCE=2 -g3 -O2 \
-			-fsanitize=address -fsanitize=undefined -fsanitize=leak -L. -lft -Iinclude
+			-fsanitize=address -fsanitize=undefined -fsanitize=leak -L. -lft -Iinclude \
+			$(if $(filter 1,$(GC)),-D USE_GC=1,-D USE_GC=0)
 AR		:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	arena map vec tstr cstr alloc in is mem num out
@@ -45,7 +49,7 @@ full: banner all bonus
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@echo -e -n "\033[34m==> Compiling...\r\033[0m"
-	@$(CC) $(FLAGS) -D USE_GC=0 -c $< -o $@ -Iinclude
+	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
 	@$(AR) $@ $^
@@ -73,7 +77,7 @@ t-san: $(NAME)
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
 		echo -e "\033[34m==> Compiling $$name\033[0m"; \
-		$(CC) $$test -D BIG_TEST=1 -D USE_GC=0 $(TESTFLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
+		$(CC) $$test -D BIG_TEST=1 $(TESTFLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
 	done
 	$(SEP)
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
@@ -88,7 +92,7 @@ t-val: $(NAME)
 	@for test in $(TEST_SRCS); do \
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
-		$(CC) $$test $(FLAGS) -D USE_GC=0 -Iinclude -L. -lft -o $$out || exit 1; \
+		$(CC) $$test $(FLAGS) -Iinclude -L. -lft -o $$out || exit 1; \
 	done
 	@for bin in $(OBJDIR)/$(TESTDIR)/*_tests; do \
 		valgrind --quiet --error-exitcode=42 --leak-check=full $$bin > /dev/null || echo -e "\033[31m[FAIL] $$bin\033[0m"; \
@@ -109,7 +113,6 @@ t-bench:
 	./$(OBJDIR)/$(TESTDIR)/$(TEST_BIN)
 
 t-leaks:
-	$(SEP)
 	@$(MAKE) -C ./tests/gc/
 	$(SEP)
 
@@ -129,18 +132,22 @@ t-gnl: fclean clean
 	$(SEP)
 
 test:
+	@$(MAKE) install GC=0
 	@$(MAKE) t-lib
 	@$(MAKE) t-printf
 	@$(MAKE) t-gnl
 	@$(MAKE) t-san
 	@$(MAKE) t-val
-	@$(MAKE) t-leaks
 	@$(MAKE) t-bench
+	@$(MAKE) install GC=1
+	@$(MAKE) t-leaks
 
-apitest: banner
+apitest:
+	@$(MAKE) install GC=0
 	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
 	@$(MAKE) t-san
 	@$(MAKE) t-val
+	@$(MAKE) install GC=1
 	@$(MAKE) t-leaks
 
 banner:
