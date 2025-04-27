@@ -14,9 +14,11 @@
 t_map	*ft_map_init(void)
 {
 	t_map	*map;
+	void	*tmp;
 	size_t	i;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = (t_map *)ft_talloc_raw(sizeof(t_map),
+			"(map init)", 1);
 	if (!map)
 		return (NULL);
 	map->keys = ft_vec(MAP_SIZE, sizeof(size_t));
@@ -31,7 +33,8 @@ t_map	*ft_map_init(void)
 		while (i < map->tags.size)
 			ft_tstr_free(&((t_string *)map->tags.data)[i++]);
 		ft_vec_free(&map->tags);
-		free(map);
+		tmp = (void *)map;
+		ft_free(&tmp);
 		return (NULL);
 	}
 	return (map);
