@@ -24,6 +24,10 @@
 #  define USE_GC 1
 # endif
 
+# ifndef LK_VERB
+#  define LK_VERB 0
+# endif
+
 extern t_map	*g_table;
 
 void			*ft_alloc(size_t size);

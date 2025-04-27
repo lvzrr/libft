@@ -32,7 +32,7 @@ static void	ft_gc_debug(void)
 }
 
 __attribute__((destructor))
-void ft_gc(void)
+void	ft_gc(void)
 {
 	if (g_table)
 	{

@@ -101,7 +101,7 @@ t-bench:
 		-Wconversion -Wsign-conversion -Wcast-align -Wcast-qual \
 		-Wshadow -Wundef -Wwrite-strings -Wredundant-decls -Winline \
 		-fno-common -fstrict-aliasing -fstack-protector-strong \
-		-fPIC -D_FORTIFY_SOURCE=2 -D USE_GC=0 -g3 -O3 \
+		-fPIC -D_FORTIFY_SOURCE=2 -g3 -O3 \
 		-fsanitize=address -fsanitize=undefined -fsanitize=leak \
 		-Iinclude -L. -lft -o build/tests/a.out
 	$(SEP)

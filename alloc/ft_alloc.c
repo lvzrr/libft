@@ -28,7 +28,10 @@ void	*ft_talloc(size_t size, const char *t)
 	if (USE_GC)
 	{
 		if (!g_table)
+		{
+			ft_gc();
 			g_table = ft_map_init();
+		}
 		if (!t || !*t)
 			t = "(untagged)";
 		ft_map_insert(new_alloc, size, g_table, t);
