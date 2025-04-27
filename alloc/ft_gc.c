@@ -17,16 +17,22 @@ static void	ft_gc_debug(void)
 	t_mem		*mem;
 	t_string	*str;
 	size_t		i;
+	size_t		tombs;
 
 	i = 0;
+	tombs = 0;
 	while (i < g_table->keys.size)
 	{
 		mem = &((t_mem *)g_table->values.data)[i];
 		str = &((t_string *)g_table->tags.data)[i];
-		ft_printf("[GC JOB] ptr: %p, size: %u, tag: %s\n",
-			mem->ptr, mem->size, str->data);
+		if (mem->ptr)
+			ft_printf("[GC JOB] ptr: %p, size: %u, tag: %s\n",
+				mem->ptr, mem->size, str->data);
+		else
+			tombs++;
 		i++;
 	}
+	ft_printf("\n[GC BURIAL] Deleted at least: %u entries manually (RIP).\n", tombs);
 }
 
 __attribute__((destructor))
