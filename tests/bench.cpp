@@ -378,17 +378,6 @@ int main() {
 	cout << "    ft_tstr       → time: " << tstr_total_ns << " ns, memory: " << tstr_total_bytes << " bytes\n";
 	cout << "    std::string   → time: " << std_total_ns << " ns, memory: " << std_total_bytes << " bytes\033[0m\n";
 
-	double perf_ratio = static_cast<double>(std_total_ns) / static_cast<double>(tstr_total_ns) * 100.0;
-	cout << fixed << setprecision(2);
-	cout << "\033[31m  ";
-	if (perf_ratio < 100.0)
-		cout << "ft_tstr is " << perf_ratio << "% as fast as std::string\n";
-	else if (perf_ratio > 100.0)
-		cout << "ft_tstr is " << perf_ratio << "% faster than std::string\n";
-	else
-		cout << "ft_tstr and std::string have identical speed.\n";
-	cout << "\033[0m";
-
 	cout << "\033[35m═══════════════════════════════════════════════════════════════\033[0m\n";
 
 	return 0;

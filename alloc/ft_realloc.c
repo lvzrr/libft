@@ -18,14 +18,14 @@ void	*ft_realloc(void *ptr, size_t n, size_t size)
 	if (!size)
 		return (free(ptr), NULL);
 	if (!ptr)
-		return (malloc(size));
-	p = malloc(size);
+		return (ft_alloc(size));
+	p = ft_alloc(size);
 	if (!p)
-		return (free(ptr), NULL);
+		return (ft_free(&ptr), NULL);
 	if (size < n)
 		n = size;
 	ft_memmove(p, ptr, n);
 	if (ptr)
-		free(ptr);
+		ft_free(&ptr);
 	return (p);
 }

@@ -19,7 +19,7 @@ void	*ft_calloc(size_t n, size_t size)
 	total = n * size;
 	if (size != 0 && n > SIZE_MAX / size)
 		return (0);
-	alloc = malloc(total);
+	alloc = ft_alloc(total);
 	if (!alloc)
 		return (NULL);
 	ft_memset(alloc, 0, total);

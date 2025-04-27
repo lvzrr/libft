@@ -31,20 +31,19 @@ $(VSOPEN): vs%:
 
 mandatory_start: update message
 	@tput setaf 6
-	make -C $(LIBFT_PATH)
+	@make -C $(LIBFT_PATH)
 	@echo -e "\033[35m*===== libft test =====*\033[0m"
 	@tput setaf 4 && echo [Mandatory]
 
 bonus_start: update message
 	@tput setaf 6
-	make bonus -C $(LIBFT_PATH)
+	@make bonus -C $(LIBFT_PATH)
 	@tput setaf 5 && echo [Bonus]
 
 update:
 	@git pull
 
 message: checkmakefile
-	@tput setaf 3 && echo "If all your tests are OK and the moulinette KO you, please run the tester with valgrind (see README)"
 
 checkmakefile:
 	@ls $(LIBFT_PATH) | grep Makefile > /dev/null 2>&1 || (tput setaf 1 && echo Makefile not found. && exit 1)
@@ -61,9 +60,9 @@ b: $(BONUS)
 a: m b 
 
 clean:
-	make clean -C $(LIBFT_PATH) && rm -rf a.out*
+	@make clean -C $(LIBFT_PATH) && rm -rf a.out*
 
 fclean:
-	make fclean -C $(LIBFT_PATH) && rm -rf a.out*
+	@make fclean -C $(LIBFT_PATH) && rm -rf a.out*
 
 .PHONY:	mandatory_start m bonus_start b a fclean clean update message $(VSOPEN) $(MAIL)

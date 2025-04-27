@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recalloc.c                                      :+:      :+:    :+:   */
+/*   ft_map_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 01:50:26 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/04/25 03:16:06 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/04/27 01:19:27 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/04/27 01:19:44 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "alloc.h"
+#include "map.h"
 
-void	*ft_recalloc(void *ptr, size_t n, size_t size)
+void	ft_map_free(t_map *map)
 {
-	void	*p;
+	size_t	size;
+	size_t	i;
 
-	if (!size)
-		return (ft_free(&ptr), NULL);
-	if (!ptr)
-		return (ft_calloc(size, 1));
-	p = ft_calloc(size, 1);
-	if (!p)
-		return (ft_free(&ptr), NULL);
-	if (size < n)
-		n = size;
-	ft_memmove(p, ptr, n);
-	if (ptr)
-		ft_free(&ptr);
-	return (p);
+	if (!map)
+		return ;
+	size = map->tags.size;
+	ft_vec_free(&map->keys);
+	i = 0;
+	while (i < size)
+		ft_free(&(((t_mem *)map->values.data)[i++].ptr));
+	i = 0;
+	while (i < size)
+		ft_tstr_free(&((t_string *)map->tags.data)[i++]);
+	ft_vec_free(&map->values);
+	ft_vec_free(&map->tags);
+	free(map);
 }

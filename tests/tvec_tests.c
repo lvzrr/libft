@@ -363,11 +363,11 @@ void	vec_clear_test(void)
 
 	// Check NULL-safe
 	ft_vec_clear(NULL);
-	ft_printf(GREEN "2.OK " RESET);
+	ft_printf(GREEN "1.OK " RESET);
 
 	// Report final result
 	if (pass)
-		ft_printf(GREEN "1.OK\n" RESET);
+		ft_printf(GREEN "2.OK\n" RESET);
 
 	ft_vec_free(&v);
 }

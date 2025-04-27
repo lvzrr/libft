@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recalloc.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 01:50:26 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/04/25 03:16:06 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/04/26 23:38:38 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/04/26 23:38:58 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "alloc.h"
 
-void	*ft_recalloc(void *ptr, size_t n, size_t size)
+void	ft_free(void	**ptr)
 {
-	void	*p;
+	t_mem	*mem;
 
-	if (!size)
-		return (ft_free(&ptr), NULL);
-	if (!ptr)
-		return (ft_calloc(size, 1));
-	p = ft_calloc(size, 1);
-	if (!p)
-		return (ft_free(&ptr), NULL);
-	if (size < n)
-		n = size;
-	ft_memmove(p, ptr, n);
-	if (ptr)
-		ft_free(&ptr);
-	return (p);
+	if (!ptr || !*ptr)
+		return ;
+	if (USE_GC)
+	{
+		mem = ft_map_lookup(g_table,
+				(size_t)(*ptr) >> 4);
+		if (mem && !mem->freed && mem->ptr)
+		{
+			free(mem->ptr);
+			mem->freed = 1;
+			mem->ptr = NULL;
+			mem->size = 0;
+		}
+		else if (!mem || mem->ptr != *ptr)
+			free(*ptr);
+	}
+	else
+		free(*ptr);
+	*ptr = NULL;
 }

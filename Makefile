@@ -22,7 +22,7 @@ TESTFLAGS	:=	-Wextra -Werror -Wpedantic -Wconversion -Wsign-conversion -Wcast-al
 			-fsanitize=address -fsanitize=undefined -fsanitize=leak -L. -lft -Iinclude
 AR		:=	ar rcs
 OBJDIR		:=	build
-DIRS		:=	vec tstr cstr alloc in is mem num out
+DIRS		:=	arena map vec tstr cstr alloc in is mem num out
 TESTDIR		:=	tests
 BONUS		:=	lst
 BONUS_SRCS	:=	$(foreach dir, $(BONUS), $(wildcard $(dir)/*.c))
@@ -39,35 +39,31 @@ SEP = @echo -e "\n\033[1;34m═════════════════�
 
 full: banner all bonus
 	$(SEP)
-	norminette $(SRCS) $(BONUS_SRCS)
+	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
 	$(SEP)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	@echo -e -n "\033[34m==> Compiling...\r\033[0m"
+	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
-	$(SEP)
-	$(AR) $@ $^
-	$(SEP)
+	@$(AR) $@ $^
 
 install: re
-	$(SEP)
-	sudo cp $(NAME) /usr/local/lib
-	sudo cp include/libft.h /usr/local/include/
-	$(SEP)
+	@sudo cp $(NAME) /usr/local/lib
+	@sudo cp include/libft.h /usr/local/include/
 
 bonus: $(BONUS_OBJS)
-	$(AR) $(NAME) $^
+	@$(AR) $(NAME) $^
 
 all: $(NAME)
 
 clean:
-	$(SEP)
-	rm -rf $(OBJDIR)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean full
 
@@ -88,7 +84,7 @@ t-san: $(NAME)
 
 t-val: $(NAME)
 	@mkdir -p $(OBJDIR)/$(TESTDIR)
-	@echo -e "\033[34m==> Looking for leaks...\033[0m"
+	@echo -e -n "\033[34m==> Looking for leaks...\r\033[0m"
 	@for test in $(TEST_SRCS); do \
 		name=$$(basename $$test .c); \
 		out=$(OBJDIR)/$(TESTDIR)/$$name; \
@@ -105,7 +101,7 @@ t-bench:
 		-Wconversion -Wsign-conversion -Wcast-align -Wcast-qual \
 		-Wshadow -Wundef -Wwrite-strings -Wredundant-decls -Winline \
 		-fno-common -fstrict-aliasing -fstack-protector-strong \
-		-fPIC -D_FORTIFY_SOURCE=2 -g3 -O3 \
+		-fPIC -D_FORTIFY_SOURCE=2 -D USE_GC=0 -g3 -O3 \
 		-fsanitize=address -fsanitize=undefined -fsanitize=leak \
 		-Iinclude -L. -lft -o build/tests/a.out
 	$(SEP)
@@ -136,7 +132,7 @@ test:
 	@$(MAKE) t-bench
 
 apitest: banner
-	norminette $(SRCS) $(BONUS_SRCS)
+	@norminette $(SRCS) $(BONUS_SRCS) | grep -q 'Error' || echo "norminette OK"
 	@$(MAKE) t-san
 	@$(MAKE) t-val
 

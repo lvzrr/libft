@@ -1,37 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 00:35:38 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/04/23 19:03:02 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/04/26 20:54:15 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/04/26 20:55:27 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef LIBFT_H
-# define LIBFT_H
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <stdarg.h>
-# include <stdio.h>
-# include <limits.h>
+#ifndef MAP_H
+# define MAP_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+# ifndef MAP_SIZE
+#  define MAP_SIZE 256
 # endif
 
-# include "cstr.h"
+# include <sys/types.h>
+# include <stdarg.h>
+# include "vec.h"
+
+typedef struct s_mem
+{
+	void			*ptr;
+	size_t			size;
+	unsigned int	freed;
+}	t_mem;
+
+typedef struct s_map
+{
+	t_vec		keys;
+	t_vec		values;
+	t_vec		tags;
+}	t_map;
+
 # include "tstr.h"
 # include "mem.h"
-# include "chars.h"
-# include "put.h"
-# include "printf.h"
-# include "gnl.h"
-# include "lst.h"
-# include "nums.h"
-# include "vec.h"
-# include "map.h"
 
+t_map			*ft_map_init(void);
+int				ft_map_insert(void *ptr, size_t size, t_map *map, ...);
+t_mem			*ft_map_lookup(t_map *map, size_t key);
+void			ft_map_free(t_map *map);
 #endif

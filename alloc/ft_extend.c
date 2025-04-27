@@ -18,12 +18,12 @@ void	*ft_extend(void *ptr, size_t n, size_t size)
 	if (size > SIZE_MAX - n)
 		return (NULL);
 	if (size == 0 && ptr)
-		return (free(ptr), NULL);
+		return (ft_free(&ptr), NULL);
 	if (!ptr)
-		return (malloc(n + size));
-	p2 = malloc(n + size);
+		return (ft_alloc(n + size));
+	p2 = ft_alloc(n + size);
 	if (!p2)
 		return (NULL);
 	ft_memmove(p2, ptr, n);
-	return (free(ptr), p2);
+	return (ft_free(&ptr), p2);
 }

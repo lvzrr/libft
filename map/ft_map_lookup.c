@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recalloc.c                                      :+:      :+:    :+:   */
+/*   ft_map_lookup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 01:50:26 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/04/25 03:16:06 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/04/27 01:01:55 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/04/27 01:03:53 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "alloc.h"
+#include "map.h"
 
-void	*ft_recalloc(void *ptr, size_t n, size_t size)
+t_mem	*ft_map_lookup(t_map *map, size_t key)
 {
-	void	*p;
+	size_t	i;
+	size_t	*key_ptr;
 
-	if (!size)
-		return (ft_free(&ptr), NULL);
-	if (!ptr)
-		return (ft_calloc(size, 1));
-	p = ft_calloc(size, 1);
-	if (!p)
-		return (ft_free(&ptr), NULL);
-	if (size < n)
-		n = size;
-	ft_memmove(p, ptr, n);
-	if (ptr)
-		ft_free(&ptr);
-	return (p);
+	if (!map || !map->keys.data || map->keys.size == 0)
+		return (NULL);
+	i = 0;
+	while (i < map->keys.size)
+	{
+		key_ptr = (size_t *)map->keys.data;
+		if (key_ptr[i] == key)
+			return ((t_mem *)map->values.data + i);
+		i++;
+	}
+	return (NULL);
 }
