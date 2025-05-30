@@ -37,7 +37,7 @@ plus a lightweight garbage collector inspired by modern programming languages.
   - Reserve and shrink-to-fit memory management
   - Clear and reuse vectors efficiently
 - Inspired by C++ `std::vector` and Rust `Vec<T>`, but adapted for pure C.
-
+- Thought to be able to act as a stack if needed.
 ### Lightweight Garbage Collector
 
 - Memory allocations are **tracked internally** using a map-based structure.
@@ -53,27 +53,3 @@ plus a lightweight garbage collector inspired by modern programming languages.
 - Reduce the risk of manual memory management errors.
 - Preserve Norminette compatibility for educational consistency.
 - Explore modern memory management concepts within the constraints of C.
-
----
-
-## Requirements
-
-- CC/G++
-- Make
-- Linux or macOS environment (POSIX systems)
-
----
-
-## Building
-
-Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/libft
-cd libft
-make (GC=0/1 depending if you want included garbage collection)
-```
-Test the repository:
-```bash
-make test
-```
