@@ -12,7 +12,7 @@
 
 NAME		:=	libft.a
 CC			:=	cc
-GC			?= 0
+GC			?=	0
 
 FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
 			-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
@@ -64,7 +64,7 @@ banner:
 	@printf "\n\033[35m"
 	@printf "⠀⠀⣠⡶⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀      \033[1;35mlibft project\033[0;35m\n"
 	@printf "⠀⣰⣿⠃⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀      Author : jaicastr\n"
-	@printf "⢸⣿⣯⠀⠀⠀⠀⠀⠀⢠⣴⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀      Version: 1.0.0\n"
+	@printf "⢸⣿⣯⠀⠀⠀⠀⠀⠀⢠⣴⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀      Version: 1.1.0\n"
 	@printf "⢼⣿⣿⣆⠀⢀⣀⣀⣴⣿⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀      Flags  : a lot lmao\n"
 	@printf "⢸⣿⣿⣿⣿⣿⣿⣿⠿⠿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀      Build  : make full | make test\n"
 	@printf "⠀⢻⣿⠋⠙⢿⣿⣿⡀⠀⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀      Repo   : github.com/lvzrr/libft\n"
