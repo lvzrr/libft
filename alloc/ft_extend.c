@@ -21,7 +21,9 @@ void	*ft_extend(void *ptr, size_t n, size_t size)
 		return (ft_free(&ptr), NULL);
 	if (!ptr)
 		return (ft_alloc(n + size));
+	g_gc_critical = 1;
 	p2 = ft_alloc(n + size);
+	g_gc_critical = 0;
 	if (!p2)
 		return (NULL);
 	ft_memmove(p2, ptr, n);

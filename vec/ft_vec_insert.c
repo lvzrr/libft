@@ -11,25 +11,35 @@
 /* ************************************************************************** */
 #include "vec.h"
 
+static inline size_t	max(size_t a, size_t b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
 void	ft_vec_insert(t_vec *v, size_t index, void *data, size_t len)
 {
 	void	*new;
+	size_t	new_alloc;
 
 	if (!v || !data || len == 0 || index > v->size)
 		return ;
 	if (v->alloc_size < v->size + len)
 	{
+		new_alloc = max(v->alloc_size * 2, v->size + len);
 		new = ft_extend_zero(v->data, v->alloc_size * v->sizeof_type,
-				len * v->sizeof_type);
+				(new_alloc - v->alloc_size) * v->sizeof_type);
 		if (!new)
 			return ;
 		v->data = new;
-		v->alloc_size += len;
+		v->alloc_size = new_alloc;
 	}
-	ft_memmove((char *)v->data + (index + len) * v->sizeof_type,
-		(char *)v->data + index * v->sizeof_type,
+	ft_memmove((t_u8 *)v->data + (index + len) * v->sizeof_type,
+		(t_u8 *)v->data + index * v->sizeof_type,
 		(v->size - index) * v->sizeof_type);
-	ft_memcpy((char *)v->data + index * v->sizeof_type,
+	ft_memcpy((t_u8 *)v->data + index * v->sizeof_type,
 		data, len * v->sizeof_type);
 	v->size += len;
 }

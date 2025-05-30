@@ -29,6 +29,7 @@
 # endif
 
 extern t_map	*g_table;
+extern int		g_gc_critical;
 
 void			*ft_alloc(size_t size);
 void			*ft_talloc(size_t size, const char *t);

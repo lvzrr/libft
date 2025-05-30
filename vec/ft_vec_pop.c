@@ -11,19 +11,13 @@
 /* ************************************************************************** */
 #include "vec.h"
 
-void	*ft_vec_pop(t_vec *v)
+inline void	ft_vec_pop(t_vec *v)
 {
 	void	*ptr;
-	void	*copy;
 
 	if (!v || !v->data || v->size == 0)
-		return (NULL);
+		return ;
 	v->size--;
-	ptr = (char *)v->data + (v->size * v->sizeof_type);
-	copy = ft_calloc(1, v->sizeof_type);
-	if (!copy)
-		return (NULL);
-	ft_memcpy(copy, ptr, v->sizeof_type);
+	ptr = (t_u8 *)v->data + (v->size * v->sizeof_type);
 	ft_bzero(ptr, v->sizeof_type);
-	return (copy);
 }

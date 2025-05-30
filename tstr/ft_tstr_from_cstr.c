@@ -19,7 +19,7 @@ t_string	ft_tstr_from_cstr(const char *str)
 	{
 		out.len = 0;
 		out.alloc_size = 1;
-		out.data = ft_talloc_raw(1, "(cstr->tstr)", 1);
+		out.data = ft_talloc_raw(1, NULL, 1);
 		ft_memset(out.data, 0, 1);
 	}
 	else
@@ -27,7 +27,7 @@ t_string	ft_tstr_from_cstr(const char *str)
 		out.len = ft_strlen(str);
 		out.alloc_size = out.len + 1;
 		out.data = ft_talloc_raw(out.alloc_size,
-				"(cstr->tstr)", 1);
+				NULL, 1);
 		ft_memset(out.data, 0, out.alloc_size);
 		if (out.data)
 			ft_memcpy(out.data, str, out.len);

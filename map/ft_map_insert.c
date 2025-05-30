@@ -18,7 +18,7 @@ int	ft_map_insert(void *ptr, size_t size, t_map *map, ...)
 	t_string	str;
 	t_mem		val;
 
-	if (!ptr || !map || map->keys.size >= map->keys.alloc_size)
+	if (!ptr || !map)
 		return (-1);
 	if (ft_map_lookup(map, (size_t)ptr >> 4))
 		return (-1);
@@ -28,8 +28,8 @@ int	ft_map_insert(void *ptr, size_t size, t_map *map, ...)
 	va_start(args, map);
 	t = va_arg(args, const char *);
 	va_end(args);
-	if (!t || !*t)
-		str = ft_tstr_from_cstr("(untagged)");
+	if (!t || !*t || ft_strcmp(t, "(cstr->tstr)") == 0)
+		str = (t_string){.len = 0, .alloc_size = 0, .data = NULL};
 	else
 		str = ft_tstr_from_cstr(t);
 	ft_vec_push(&map->keys, &(size_t){(size_t)ptr >> 4}, 1);

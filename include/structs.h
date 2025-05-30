@@ -14,6 +14,8 @@
 
 # include <sys/types.h>
 
+typedef unsigned char	t_u8;
+
 typedef struct s_string
 {
 	size_t	len;
@@ -42,4 +44,12 @@ typedef struct s_map
 	t_vec		values;
 	t_vec		tags;
 }	t_map;
+
+typedef struct s_arena
+{
+	void		*next;
+	void		*data;
+	size_t		used;
+	size_t		size;
+}	t_arena;
 #endif

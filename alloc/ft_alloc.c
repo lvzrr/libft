@@ -13,6 +13,7 @@
 #include "printf.h"
 
 t_map	*g_table;
+int		g_gc_critical;
 
 void	*ft_alloc(size_t size)
 {
@@ -21,12 +22,12 @@ void	*ft_alloc(size_t size)
 
 void	*ft_talloc(size_t size, const char *t)
 {
-	void		*new_alloc;
+	void	*new_alloc;
 
 	new_alloc = malloc(size);
 	if (!new_alloc)
 		return (NULL);
-	if (USE_GC)
+	if (USE_GC && !g_gc_critical)
 	{
 		if (!g_table)
 		{
@@ -42,14 +43,14 @@ void	*ft_talloc(size_t size, const char *t)
 
 void	*ft_talloc_raw(size_t size, const char *t, int skip)
 {
-	void		*new_alloc;
+	void	*new_alloc;
 
 	if (!size)
 		return (NULL);
 	new_alloc = malloc(size);
 	if (!new_alloc)
 		return (NULL);
-	if (USE_GC && !skip)
+	if (USE_GC && !skip && !g_gc_critical)
 	{
 		if (!t || !*t)
 			t = "(untagged)";

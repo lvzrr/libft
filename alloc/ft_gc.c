@@ -21,7 +21,7 @@ static void	ft_gc_debug(void)
 
 	i = 0;
 	tombs = 0;
-	while (i < g_table->keys.size)
+	while (i < g_table->keys.size && LK_VERB)
 	{
 		mem = &((t_mem *)g_table->values.data)[i];
 		str = &((t_string *)g_table->tags.data)[i];
@@ -32,8 +32,9 @@ static void	ft_gc_debug(void)
 			tombs++;
 		i++;
 	}
-	ft_printf("\n[GC BURIAL] Deleted at least: %u entries manually (RIP).\n",
-		tombs);
+	if (LK_VERB)
+		ft_printf("[GC BURIAL] %u/%u entries manually (RIP).\n",
+			tombs, g_table->keys.size);
 }
 
 __attribute__((destructor))
