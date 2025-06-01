@@ -13,8 +13,12 @@
 # define STRUCTS_H
 
 # include <sys/types.h>
+# include <stdint.h>
 
 typedef unsigned char	t_u8;
+typedef uint64_t		t_u64;
+typedef uint32_t		t_u32;
+typedef uintptr_t		t_uptr;
 
 typedef struct s_string
 {

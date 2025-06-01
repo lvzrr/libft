@@ -12,28 +12,25 @@
 
 #include "mem.h"
 
-t_u8	ft_memswap(void *p1, void *p2, size_t len)
+__attribute__((always_inline))
+inline t_u8	ft_memswap(void *__restrict__ p1,
+	void *__restrict__ p2, size_t len)
 {
-	void	*buffer;
+	size_t	i;
+	t_u8	*mp1;
+	t_u8	*mp2;
+	t_u8	x;
 
 	if (!p1 || !p2 || !len)
 		return (0);
-	buffer = ft_talloc(len, "swap buffer");
-	if (!buffer)
-		return (0);
-	ft_memcpy(buffer, p1, len);
-	ft_memcpy(p1, p2, len);
-	ft_memcpy(p2, buffer, len);
-	ft_free(&buffer);
-	return (1);
-}
-
-t_u8	ft_memswap_extern(void *p1, void *p2, size_t len, void *buffer)
-{
-	if (!p1 || !p2 || !len || !buffer)
-		return (0);
-	ft_memcpy(buffer, p1, len);
-	ft_memcpy(p1, p2, len);
-	ft_memcpy(p2, buffer, len);
+	i = 0;
+	mp1 = (t_u8 *)p1;
+	mp2 = (t_u8 *)p2;
+	while (i < len)
+	{
+		x = mp1[i];
+		mp1[i] = mp2[i];
+		mp2[i++] = x;
+	}
 	return (1);
 }

@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "mem.h"
 
-int	ft_memcmp(const void *r1, const void *r2, size_t n)
+inline int	ft_memcmp(const void *__restrict__ r1,
+	const void *__restrict__ r2, size_t n)
 {
 	t_u8	*_r1;
 	t_u8	*_r2;

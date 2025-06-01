@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "mem.h"
 
-void	ft_bzero(void *ptr, size_t n)
+__attribute__((always_inline))
+inline void	ft_bzero(void *__restrict__ ptr, size_t n)
 {
 	t_u8	*p;
 

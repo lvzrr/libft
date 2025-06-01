@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 #include "mem.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+__attribute__((always_inline))
+inline void	*ft_memmove(void *__restrict__ dest,
+	const void *__restrict__ src, size_t n)
 {
 	t_u8	*s;
 	t_u8	*d;

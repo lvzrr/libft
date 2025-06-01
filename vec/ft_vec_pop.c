@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "vec.h"
 
+__attribute__((always_inline))
+__attribute__((hot))
 inline void	ft_vec_pop(t_vec *v)
 {
 	void	*ptr;

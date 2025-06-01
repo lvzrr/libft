@@ -12,7 +12,9 @@
 
 #include "vec.h"
 
-void	ft_memtake(void *dst, void *src, size_t len)
+__attribute__((always_inline))
+inline void	ft_memtake(void *__restrict__ dst,
+	void *__restrict__ src, size_t len)
 {
 	if (!dst || !src || !len)
 		return ;

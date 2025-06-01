@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "mem.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+__attribute__((always_inline))
+inline void	*ft_memset(void *__restrict__ s, int c, size_t n)
 {
 	t_u8	*p;
 	t_u8	c1;

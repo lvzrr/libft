@@ -12,7 +12,9 @@
 
 #include "vec.h"
 
-void	*ft_vec_peek_last(t_vec *v)
+__attribute__((always_inline))
+__attribute__((hot))
+inline void	*ft_vec_peek_last(t_vec *v)
 {
 	if (!v || v->size == 0)
 		return (NULL);

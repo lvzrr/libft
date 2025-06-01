@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "mem.h"
 
-void	*ft_memchr(const void *ptr, int c, size_t n)
+inline void	*ft_memchr(const void *__restrict__ ptr, int c, size_t n)
 {
 	unsigned int	i;
 	t_u8			*p;

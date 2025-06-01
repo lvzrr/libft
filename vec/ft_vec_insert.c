@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "vec.h"
 
+__attribute__((always_inline))
 static inline size_t	max(size_t a, size_t b)
 {
 	if (a > b)

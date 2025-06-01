@@ -16,13 +16,19 @@
 # include "alloc.h"
 # include "structs.h"
 
-void			ft_bzero(void *ptr, size_t n);
-void			*ft_memset(void *s, int c, size_t n);
-void			*ft_memcpy(void *dest, const void *src, size_t n);
-void			ft_memtake(void *dest, void *src, size_t n);
-t_u8			ft_memswap(void *p1, void *p2, size_t n);
-t_u8			ft_memswap_extern(void *p1, void *p2, size_t n, void *buffer);
-void			*ft_memmove(void *dest, const void *src, size_t n);
-void			*ft_memchr(const void *ptr, int c, size_t n);
-int				ft_memcmp(const void *r1, const void *r2, size_t n);
+void			ft_bzero(void *__restrict__ ptr, size_t n);
+void			*ft_memset(void *__restrict__ s, int c, size_t n);
+void			*ft_memcpy(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
+void			ft_memtake(void *__restrict__ dest,
+					void *__restrict__ src, size_t n);
+t_u8			ft_memswap(void *__restrict__ p1,
+					void *__restrict__ p2, size_t n);
+t_u8			ft_memswap_extern(void *__restrict__ p1,
+					void *__restrict__ p2, size_t n, void *buffer);
+void			*ft_memmove(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
+void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n);
+int				ft_memcmp(const void *__restrict__ r1,
+					const void *__restrict__ r2, size_t n);
 #endif

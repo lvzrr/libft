@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "vec.h"
 
+__attribute__((always_inline))
+__attribute__((hot))
 inline t_u8	ft_vec_popmv(void *dst, t_vec *v)
 {
 	if (!dst || !v || !v->alloc_size || !v->size)
