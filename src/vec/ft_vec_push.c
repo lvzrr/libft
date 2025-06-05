@@ -23,7 +23,7 @@ void	ft_vec_push(t_vec *vec, void *data, size_t len)
 	{
 		new_alloc = __max_s(vec->alloc_size * 2,
 				(vec->size + len) * vec->sizeof_type);
-		tmp = lv_extend_zero(vec->data,
+		tmp = ft_extend_zero(vec->data,
 				vec->alloc_size * vec->sizeof_type,
 				(new_alloc - vec->alloc_size) * vec->sizeof_type);
 		if (!tmp)
@@ -31,7 +31,7 @@ void	ft_vec_push(t_vec *vec, void *data, size_t len)
 		vec->data = tmp;
 		vec->alloc_size = new_alloc;
 	}
-	lv_memcpy(((t_u8 *)(vec->data) + (vec->size * vec->sizeof_type)),
+	ft_memcpy(((t_u8 *)(vec->data) + (vec->size * vec->sizeof_type)),
 		data, len * vec->sizeof_type);
 	vec->size += len;
 }
