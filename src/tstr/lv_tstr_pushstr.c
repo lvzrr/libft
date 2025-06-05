@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tstr_pushstr.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/05 02:14:50 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/06/05 02:14:57 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "tstr.h"
+
+void	ft_tstr_pushstr(t_string *str, const char *s)
+{
+	size_t	len;
+	size_t	needed;
+	char	*new_data;
+
+	if (!str || !s)
+		return ;
+	len = ft_strlen(s);
+	needed = str->len + len + 1;
+	if (needed > str->alloc_size)
+	{
+		new_data = ft_extend_zero(str->data, str->alloc_size,
+				(needed - str->alloc_size) * 2);
+		if (!new_data)
+			return ;
+		str->data = new_data;
+		str->alloc_size = needed;
+	}
+	ft_memmove(str->data, s, str->len);
+	str->data[str->len] = 0;
+	str->len += len;
+}

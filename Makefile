@@ -1,0 +1,68 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/05 11:51:24 by jaicastr          #+#    #+#              #
+#    Updated: 2025/06/05 11:51:25 by jaicastr         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME		:=	libft.a
+CC			:=	cc
+FLAGS		:=	-Wall -Wextra -Werror -Wno-unused-result -Wstrict-overflow=5 -Wdouble-promotion \
+				-Wlogical-op -Wjump-misses-init -Wunsafe-loop-optimizations -Wstrict-aliasing=2 \
+				-Wpedantic -Wundef -Wwrite-strings -Wredundant-decls -Wnested-externs -Winline -O3
+AR			:=	ar rcs
+OBJDIR		:=	build
+DIRS		:=	map vec tstr cstr alloc in is mem conv out lst mem/mem_helpers
+
+SRCS		:=	$(foreach dir, $(DIRS), $(wildcard src/$(dir)/*.c))
+OBJS		:=	$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
+
+all: $(NAME)
+
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+
+$(NAME): $(OBJS)
+	$(AR) $@ $^
+
+install: all
+	@sudo cp $(NAME) /usr/local/lib
+	@sudo mkdir -p /usr/local/include/llv/
+	@sudo cp include/* /usr/local/include/llv/
+
+clean:
+	@rm -rf $(OBJDIR)
+
+fclean: clean
+	@rm -f $(NAME)
+
+test-mem:
+	@mkdir -p $(OBJDIR)/tests
+	@echo "Testing Valgrind (mem module)..."
+	@cc -O3 tests/mem.c -llv -Iinclude -o $(OBJDIR)/tests/mem.test
+	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/mem.test
+	@echo "Testing Asan (mem module)..."
+	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/mem.test tests/mem.c -llv && ./$(OBJDIR)/tests/mem.test 1>/dev/null
+	@echo "Asan done (mem module)"
+
+test-cstr:
+	@mkdir -p $(OBJDIR)/tests
+	@echo "Testing Valgrind (mem module)..."
+	@cc -O3 tests/cstr.c -llv -Iinclude -o $(OBJDIR)/tests/cstr.test
+	@valgrind --leak-check=full --track-origins=yes -s ./$(OBJDIR)/tests/cstr.test
+	@echo "Testing Asan (cstr module)..."
+	@$(CC) -g -O1 -fsanitize=address,undefined,leak -fno-omit-frame-pointer -o $(OBJDIR)/tests/cstr.test tests/cstr.c -llv && ./$(OBJDIR)/tests/cstr.test 1>/dev/null
+	@echo "Asan done (cstr module)"
+
+test: install test-mem test-cstr
+
+re: fclean full all
+
+.PHONY: all clean fclean re bonus install full
+MAKEFLAGS += --no-print-directory

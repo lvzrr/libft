@@ -1,0 +1,164 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mem.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/05 02:14:50 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/06/05 02:15:00 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MEM_H
+# define MEM_H
+# include <sys/types.h>
+# include <stdlib.h>
+# include <limits.h>
+# include "alloc.h"
+# include "structs.h"
+# include "macros.h"
+
+# define LONES_64 0x0101010101010101ULL
+# define HIGHS_64 0x8080808080808080ULL
+# define ZEROS_64 0x0000000000000000ULL
+# define LONES_32  0x01010101U
+# define HIGHS_32  0x80808080U
+
+// Actual api
+
+void			ft_bzero(void *__restrict__ ptr, size_t n);
+void			*ft_memset(void *__restrict__ s, int c, size_t n);
+void			*ft_memcpy(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
+void			ft_memtake(void *__restrict__ dest,
+					void *__restrict__ src, size_t n);
+t_u8			ft_memswap(void *__restrict__ p1,
+					void *__restrict__ p2, size_t n);
+t_u8			ft_memswap_extern(void *__restrict__ p1,
+					void *__restrict__ p2, size_t n,
+					void *__restrict__ buf);
+void			*ft_memmove(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
+void			*ft_memchr(const void *__restrict__ ptr, int c, size_t n);
+ssize_t			ft_memcmp(void *__restrict__ dest,
+					const void *__restrict__ src, size_t n);
+void			*ft_memffb(const void *__restrict__ ptr,
+					t_u8 x, size_t n);
+void			*ft_memffb_b2n_unchecked(const void *__restrict__ ptr,
+					t_u8 x, size_t n);
+void			*ft_memclone(void *__restrict__ ptr, size_t size);
+void			*ft_memformat(void *ptr, size_t size);
+
+/*
+ *
+ *	HELPERS
+ *
+ */
+
+// COPY 
+
+void			_copy_u8_fwd(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u32_fwd(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u64_fwd(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u128_fwd(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u8_bw(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u32_bw(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u64_bw(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u128_bw(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+// OVERWRITING
+
+void			_write_u8_fwd(void *__restrict__ dest,
+					t_u8 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_write_u32_fwd(void *__restrict__ dest,
+					t_u32 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_write_u64_fwd(void *__restrict__ dest,
+					t_u64 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_write_u128_fwd(void *__restrict__ dest,
+					t_u128 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+// LOOKUP
+
+void			*_look4_u8_fwd(void *__restrict__ ptr,
+					t_u8 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			*_look4_u32_fwd(void *__restrict__ ptr,
+					t_u32 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			*_look4_u64_fwd(void *__restrict__ ptr,
+					t_u64 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+void			*_look4_u128_fwd(void *__restrict__ ptr,
+					t_u128 x,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+void			*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
+					t_u8 x,
+					size_t *__restrict__ i);
+void			*_look4_u32_fwd_unsafe(void *__restrict__ ptr,
+					t_u32 x,
+					size_t *__restrict__ i);
+void			*_look4_u64_fwd_unsafe(void *__restrict__ ptr,
+					t_u64 x,
+					size_t *__restrict__ i);
+void			*_look4_u128_fwd_unsafe(void *__restrict__ ptr,
+					t_u128 x,
+					size_t *__restrict__ i);
+
+// CMP
+
+ssize_t			_cmp_u8(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+ssize_t			_cmp_u32(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+ssize_t			_cmp_u64(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+ssize_t			_cmp_u128(void *__restrict__ dest,
+					const void *__restrict__ src,
+					size_t *__restrict__ n, size_t *__restrict__ i);
+
+// LIL' HELPERS
+
+int				_lookup_u32(t_u32 word, t_u32 mask);
+int				_lookup_u64(t_u64 word, t_u64 mask);
+int				_lookup_u128(t_u128 word, t_u128 mask);
+int				__hasz128(t_u128 x);
+int				__hasz64(t_u64 x);
+t_u128			__populate(t_u8 y);
+
+// ALIGNMIENT & CHECKZ
+t_u8			ft_memctz_u32(t_u32 x);
+t_u8			ft_memctz_u64(t_u64 x);
+t_u8			ft_memctz_u128(t_u128 x);
+t_u8			_aligned(const void *__restrict__ dest,
+					const void *__restrict__ src, size_t *i);
+size_t			__max_s(size_t x, size_t y);
+t_u8			__maxu8(t_u8 x, t_u8 y);
+t_u32			__maxu32(t_u32 x, t_u32 y);
+t_u64			__maxu64(t_u64 x, t_u64 y);
+t_u128			__maxu128(t_u128 x, t_u128 y);
+#endif
