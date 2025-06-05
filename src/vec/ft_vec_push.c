@@ -19,10 +19,9 @@ void	ft_vec_push(t_vec *vec, void *data, size_t len)
 
 	if (!vec || !data)
 		return ;
-	if ((vec->size + len) * vec->sizeof_type > vec->alloc_size)
+	if (vec->size + len > vec->alloc_size)
 	{
-		new_alloc = __max_s(vec->alloc_size * 2,
-				(vec->size + len) * vec->sizeof_type);
+		new_alloc = __max_s(vec->alloc_size * 2, vec->size + len);
 		tmp = ft_extend_zero(vec->data,
 				vec->alloc_size * vec->sizeof_type,
 				(new_alloc - vec->alloc_size) * vec->sizeof_type);
