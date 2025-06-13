@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conv.h                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 02:14:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/06/05 02:14:59 by jaicastr         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:14:07 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONV_H
-# define CONV_H
-# include <unistd.h>
-# include <stdlib.h>
+#include "lft.h"
 
-int				ft_atoi(const char *str);
-ssize_t			ft_atol(const char *str);
-char			*ft_itoa(int n);
-int				ft_atoi_base(char *str, char *base, int base_len);
-char			*ft_itoa_base(int n, char *base);
-char			*ft_utoa_base(size_t n, char *base);
-#endif
+ssize_t	ft_atol(const char *str)
+{
+	ssize_t		out;
+	int			neg;
+	int			i;
+
+	out = 0;
+	i = 0;
+	neg = 1;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+	{
+		neg *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+		out = out * 10 + (str[i++] - '0');
+	return (out * neg);
+}
