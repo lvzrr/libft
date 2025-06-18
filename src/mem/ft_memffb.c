@@ -20,6 +20,7 @@ FT_INLINE static inline void	*_look4_u8_tmp(void *__restrict__ ptr,
 	int		lk;
 	t_u8	r;
 
+	lk = 0;
 	r = 0;
 	d = (t_u8 *) __builtin_assume_aligned(ptr, 8);
 	while (*n >= sizeof(t_u8) * 2 && !r)
@@ -49,6 +50,7 @@ void	*ft_memffb(const void *__restrict__ ptr,
 	if (!ptr || n == 0)
 		return (NULL);
 	mask = __populate(x);
+	p = 0;
 	i = 0;
 	r = _aligned((t_u8 *)ptr, NULL, &i);
 	if (r == 0)
