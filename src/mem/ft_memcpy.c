@@ -12,7 +12,7 @@
 
 #include "mem.h"
 
-FT_INLINE inline size_t	_alinger(void *__restrict__ dest,
+FT_INLINE static inline size_t	_alinger(void *__restrict__ dest,
 	const void *__restrict__ src, size_t *n, t_u8 *r)
 {
 	size_t	x;
