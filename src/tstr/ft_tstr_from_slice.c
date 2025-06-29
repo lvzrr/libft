@@ -12,7 +12,7 @@
 
 #include "tstr.h"
 
-t_string ft_tstr_from_slice(char *s, size_t n)
+t_string	ft_tstr_from_slice(char *s, size_t n)
 {
 	t_string	out;
 
