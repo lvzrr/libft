@@ -21,7 +21,7 @@
 
 t_string		ft_tstr_from_cstr(const char *str);
 char			*ft_tstr_dup_cstr(t_string *str);
-t_string		ft_tstr_new(ssize_t len);
+t_string		ft_tstr_new(size_t len);
 void			ft_tstr_pushstr(t_string *str, const char *s);
 void			ft_tstr_push(t_string *str, char c);
 void			ft_tstr_free(t_string *str);

@@ -12,17 +12,10 @@
 
 #include "lft.h"
 
-t_string	ft_tstr_new(ssize_t len)
+t_string	ft_tstr_new(size_t len)
 {
 	t_string	out;
 
-	if (len < 0)
-	{
-		out.len = 0;
-		out.alloc_size = 0;
-		out.data = NULL;
-		return (out);
-	}
 	out.len = 0;
 	out.alloc_size = (size_t) len + 1;
 	out.data = ft_calloc(out.alloc_size, 1);

@@ -27,6 +27,6 @@ void	ft_printptr_fd(unsigned long p, int *c, int fd)
 	}
 	if (p >= 16)
 		ft_printptr_fd(p >> 4, c, fd);
-	write(fd, "0123456789abcdef" + (p & 0xF), 1);
+	write(fd, &("0123456789abcdef"[p & 0xF]), 1);
 	(*c)++;
 }
