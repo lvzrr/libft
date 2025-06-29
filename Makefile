@@ -15,7 +15,7 @@ CC			:=	cc
 FLAGS		:=	-Wall -Wextra -Werror -O3 -march=native
 AR			:=	ar rcs
 OBJDIR		:=	build
-DIRS		:=	math map vec tstr cstr alloc is mem conv io lst mem/mem_helpers
+DIRS		:=	math map vec tstr cstr alloc ctype mem conv io lst mem/mem_helpers
 
 SRCS		:=	$(foreach dir, $(DIRS), $(wildcard src/$(dir)/*.c))
 OBJS		:=	$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))

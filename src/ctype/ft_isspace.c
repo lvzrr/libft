@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft.h                                              :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 02:14:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/06/05 11:32:56 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/06/29 20:23:09 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/06/29 20:23:21 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LFT_H
-# define LFT_H
+#include "ctype.h"
 
-# include "structs.h"
-# include "cstr.h"
-# include "tstr.h"
-# include "mem.h"
-# include "ctype.h"
-# include "put.h"
-# include "io.h"
-# include "lst.h"
-# include "conv.h"
-# include "vec.h"
-# include "macros.h"
-
-#endif
+t_u8	lv_isspace(int c)
+{
+	return (c == 0x20 || (c >= 0x07 && c <= 0x0D));
+}
