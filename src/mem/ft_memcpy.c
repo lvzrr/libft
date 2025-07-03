@@ -16,23 +16,13 @@ inline void	*ft_memcpy(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	void	*ret;
-	t_u8	*bd;
-	t_u8	*bs;
 
 	if ((!dest || !src || dest == src) && n != 0)
 		return (NULL);
 	ret = dest;
-	bd = dest;
-	bs = (t_u8 *)src;
-	while (((t_uptr)src & 32) && ((t_uptr)dest & 32) && n--)
-		*bd++ = *bs++;
-	if (!((t_uptr)bd & 127) && !((t_uptr)bs & 127))
-		_copy_u128_fwd((void **)&bd, (const void **)&bs, &n);
-	if (!((t_uptr)bd & 63) && !((t_uptr)bs & 63))
-		_copy_u64_fwd((void **)&bd, (const void **)&bs, &n);
-	if (!((t_uptr)bd & 31) && !((t_uptr)bs & 31))
-		_copy_u32_fwd((void **)&bd, (const void **)&bs, &n);
-	if (n > 0)
-		_copy_u8_fwd((void **)&bd, (const void **)&bs, &n);
+	_copy_u128_fwd((void **)&dest, (const void **)&src, &n);
+	_copy_u64_fwd((void **)&dest, (const void **)&src, &n);
+	_copy_u32_fwd((void **)&dest, (const void **)&src, &n);
+	_copy_u8_fwd((void **)&dest, (const void **)&src, &n);
 	return (ret);
 }

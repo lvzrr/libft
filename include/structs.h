@@ -17,11 +17,11 @@
 # include <stdint.h>
 # include "macros.h"
 
-typedef unsigned char	t_u8;
-typedef uint32_t		t_u32;
-typedef uint64_t		t_u64;
-typedef __uint128_t		t_u128;
-typedef uintptr_t		t_uptr;
+typedef unsigned char	__attribute__((__may_alias__)) t_u8;
+typedef uint32_t		__attribute__((__may_alias__)) t_u32;
+typedef uint64_t		__attribute__((__may_alias__)) t_u64;
+typedef __uint128_t		__attribute__((__may_alias__)) t_u128;
+typedef uintptr_t		__attribute__((__may_alias__)) t_uptr;
 
 typedef struct s_string
 {
