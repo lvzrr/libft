@@ -24,7 +24,7 @@ inline void	*ft_memcpy(void *__restrict__ dest,
 	ret = dest;
 	bd = dest;
 	bs = (t_u8 *)src;
-	while (n-- && ((t_uptr)src & 32))
+	while (n-- && ((t_uptr)src & 32) && ((t_uptr)dest & 32))
 		*bd++ = *bs++;
 	if (!((t_uptr)src & 127))
 		_copy_u128_fwd(dest, src, &n);
