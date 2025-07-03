@@ -69,18 +69,18 @@ void			_copy_u64_fwd(void **__restrict__ dest,
 void			_copy_u128_fwd(void **__restrict__ dest,
 					const void **__restrict__ src,
 					size_t *__restrict__ n);
-void			_copy_u8_bw(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_copy_u32_bw(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_copy_u64_bw(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_copy_u128_bw(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+void			_copy_u8_bw(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+void			_copy_u32_bw(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+void			_copy_u64_bw(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+void			_copy_u128_bw(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
 
 // OVERWRITING
 

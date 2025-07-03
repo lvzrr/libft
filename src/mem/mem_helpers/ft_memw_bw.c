@@ -6,99 +6,93 @@
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 02:14:50 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/06/05 02:14:58 by jaicastr         ###   ########.fr       */
+/*   Updated: 2025/07/04 01:42:25 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mem.h"
 
-FT_INLINE inline void	_copy_u8_bw(void *__restrict__ dest,
-	const void *__restrict__ src, size_t *__restrict__ n,
-	size_t *__restrict__ i)
+inline void	_copy_u8_bw(void **__restrict__ dest,
+	const void **__restrict__ src,
+	size_t *__restrict__ n)
 {
-	while (*n >= sizeof(t_u8) * 2)
-	{
-		((t_u8 *)dest + *i - 2)[1] = ((t_u8 *)src + *i - 2)[1];
-		*i += sizeof(t_u8);
-		((t_u8 *)dest + *i - 2)[0] = ((t_u8 *)src + *i - 2)[0];
-		*i += sizeof(t_u8);
-		*n -= sizeof(t_u8) * 2;
-	}
-	while (*n >= sizeof(t_u8) * 2)
-	{
-		dest = (void *)(((t_u8 *)dest) - sizeof(t_u8));
-		src = (void *)(((t_u8 *)src) - sizeof(t_u8));
-		((t_u8 *)dest + *i)[0] = ((t_u8 *)src + *i)[0];
-		*i += sizeof(t_u8);
-		*n -= sizeof(t_u8);
-	}
+	t_u8	*bd;
+	t_u8	*bs;
+
+	bd = *dest;
+	bs = (t_u8 *)*src;
+	while ((*n)--)
+		*bd-- = *bs--;
 }
 
-FT_INLINE inline void	_copy_u32_bw(void *__restrict__ dest,
-	const void *__restrict__ src,
-	size_t *__restrict__ n, size_t *__restrict__ i)
+inline void	_copy_u32_bw(void **__restrict__ dest,
+	const void **__restrict__ src,
+	size_t *__restrict__ n)
 {
+	t_u32	*wd;
+	t_u32	*ws;
+
+	wd = *dest;
+	ws = (t_u32 *)*src;
 	while (*n >= sizeof(t_u32) * 2)
 	{
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u32 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u32);
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u32 *)((t_u8 *)src + *i)- 2)[0];
-		*i += sizeof(t_u32);
+		*wd-- = *ws--;
+		*wd-- = *ws--;
 		*n -= sizeof(t_u32) * 2;
 	}
 	while (*n >= sizeof(t_u32))
 	{
-		((t_u32 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u32 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u32);
+		*wd-- = *ws--;
 		*n -= sizeof(t_u32);
 	}
+	*dest = wd;
+	*src = ws;
 }
 
-FT_INLINE inline void	_copy_u64_bw(void *__restrict__ dest,
-	const void *__restrict__ src,
-	size_t *__restrict__ n, size_t *__restrict__ i)
+inline void	_copy_u64_bw(void **__restrict__ dest,
+	const void **__restrict__ src,
+	size_t *__restrict__ n)
 {
+	t_u64	*wd;
+	t_u64	*ws;
+
+	wd = *dest;
+	ws = (t_u64 *)*src;
 	while (*n >= sizeof(t_u64) * 2)
 	{
-		((t_u64 *)((t_u8 *)dest + *i - 2))[1]
-			= ((t_u64 *)((t_u8 *)src + *i - 2))[1];
-		*i += sizeof(t_u64);
-		((t_u64 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u64 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u64);
+		*wd-- = *ws--;
+		*wd-- = *ws--;
 		*n -= sizeof(t_u64) * 2;
 	}
 	while (*n >= sizeof(t_u64))
 	{
-		((t_u64 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u64 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u64);
+		*wd-- = *ws--;
 		*n -= sizeof(t_u64);
 	}
+	*dest = wd;
+	*src = ws;
 }
 
-FT_INLINE inline void	_copy_u128_bw(void *__restrict__ dest,
-	const void *__restrict__ src,
-	size_t *__restrict__ n, size_t *__restrict__ i)
+inline void	_copy_u128_bw(void **__restrict__ dest,
+	const void **__restrict__ src,
+	size_t *__restrict__ n)
 {
+	t_u128	*wd;
+	t_u128	*ws;
+
+	wd = *dest;
+	ws = (t_u128 *)*src;
 	while (*n >= sizeof(t_u128) * 2)
 	{
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[1]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[1];
-		*i += sizeof(t_u128);
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u128);
+		*wd-- = *ws--;
+		*wd-- = *ws--;
 		*n -= sizeof(t_u128) * 2;
 	}
 	while (*n >= sizeof(t_u128))
 	{
-		((t_u128 *)((t_u8 *)dest + *i) - 2)[0]
-			= ((t_u128 *)((t_u8 *)src + *i) - 2)[0];
-		*i += sizeof(t_u128);
+		*wd-- = *ws--;
 		*n -= sizeof(t_u128);
 	}
+	*dest = wd;
+	*src = ws;
 }

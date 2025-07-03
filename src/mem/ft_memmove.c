@@ -15,27 +15,15 @@
 FT_INLINE static inline void	b(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
-	size_t	i;
-	t_u8	r;
+	t_u8	*bd;
+	t_u8	*bs;
 
-	i = 0;
-	r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
-	while (n >= 2 && !r)
-	{
-		((t_u8 *)dest)[i] = ((t_u8 *)src)[i];
-		((t_u8 *)dest)[i + 1] = ((t_u8 *)src)[i + 1];
-		i += sizeof(t_u8) * 2;
-		n -= sizeof(t_u8) * 2;
-		r = _aligned((t_u8 *)dest, (t_u8 *)src, &i);
-	}
-	if (n > sizeof(t_u128) * 2 && r == 128)
-		_copy_u128_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
-	else if (n > sizeof(t_u64) * 2 && r >= 64)
-		_copy_u64_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
-	else if (n > sizeof(t_u32) * 32 && r >= 32)
-		_copy_u32_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
-	if (n > 0)
-		_copy_u8_bw((t_u8 *)dest + n, (t_u8 *)src + n, &n, &i);
+	bd = (t_u8 *)dest + n;
+	bs = (t_u8 *)src + n;
+	_copy_u128_fwd((void **)&bd, (const void **)&bs, &n);
+	_copy_u64_fwd((void **)&bd, (const void **)&bs, &n);
+	_copy_u32_fwd((void **)&bd, (const void **)&bs, &n);
+	_copy_u8_fwd((void **)&bd, (const void **)&bs, &n);
 }
 
 FT_INLINE_HOT inline void	*ft_memmove(void *__restrict__ dest,
