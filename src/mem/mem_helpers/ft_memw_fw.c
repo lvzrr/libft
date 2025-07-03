@@ -34,6 +34,20 @@ inline void	_copy_u32_fwd(void *__restrict__ dest,
 
 	wd = dest;
 	ws = (t_u32 *)src;
+	while (*n >= sizeof(t_u32) * 4)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u32) * 4;
+	}
+	while (*n >= sizeof(t_u32) * 2)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u32) * 2;
+	}
 	while (*n >= sizeof(t_u32))
 	{
 		*wd++ = *ws++;
@@ -50,6 +64,20 @@ inline void	_copy_u64_fwd(void *__restrict__ dest,
 
 	wd = dest;
 	ws = (t_u64 *)src;
+	while (*n >= sizeof(t_u64) * 4)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u64) * 4;
+	}
+	while (*n >= sizeof(t_u64) * 2)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u64) * 2;
+	}
 	while (*n >= sizeof(t_u64))
 	{
 		*wd++ = *ws++;
@@ -66,6 +94,20 @@ inline void	_copy_u128_fwd(void *__restrict__ dest,
 
 	wd = dest;
 	ws = (t_u128 *)src;
+	while (*n >= sizeof(t_u128) * 4)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u128) * 4;
+	}
+	while (*n >= sizeof(t_u128) * 2)
+	{
+		*wd++ = *ws++;
+		*wd++ = *ws++;
+		*n -= sizeof(t_u128) * 2;
+	}
 	while (*n >= sizeof(t_u128))
 	{
 		*wd++ = *ws++;
