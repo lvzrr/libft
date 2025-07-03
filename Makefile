@@ -12,7 +12,7 @@
 
 NAME		:=	libft.a
 CC			:=	cc
-FLAGS		:=	-Wall -Wextra -Werror -O3
+FLAGS		:=	-Wall -Wextra -Werror
 AR			:=	ar rcs
 OBJDIR		:=	build
 DIRS		:=	math map vec tstr cstr alloc ctype mem conv io lst mem/mem_helpers
@@ -24,10 +24,10 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 
 install: all
 	@sudo cp $(NAME) /usr/local/lib
