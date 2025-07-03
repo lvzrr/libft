@@ -60,16 +60,16 @@ void			*ft_memformat(void *ptr, size_t size);
 
 void			_copy_u8_fwd(void *__restrict__ dest,
 					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+					size_t *__restrict__ n);
 void			_copy_u32_fwd(void *__restrict__ dest,
 					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+					size_t *__restrict__ n);
 void			_copy_u64_fwd(void *__restrict__ dest,
 					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+					size_t *__restrict__ n);
 void			_copy_u128_fwd(void *__restrict__ dest,
 					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+					size_t *__restrict__ n);
 void			_copy_u8_bw(void *__restrict__ dest,
 					const void *__restrict__ src,
 					size_t *__restrict__ n, size_t *__restrict__ i);
