@@ -12,28 +12,24 @@
 
 #include "mem.h"
 
-FT_INLINE static inline void	b(void *__restrict__ dest,
+inline void	*ft_memmove(void *__restrict__ dest,
 	const void *__restrict__ src, size_t n)
 {
 	t_u8	*bd;
 	t_u8	*bs;
 
-	bd = (t_u8 *)dest + n;
-	bs = (t_u8 *)src + n;
-	_copy_u128_fwd((void **)&bd, (const void **)&bs, &n);
-	_copy_u64_fwd((void **)&bd, (const void **)&bs, &n);
-	_copy_u32_fwd((void **)&bd, (const void **)&bs, &n);
-	_copy_u8_fwd((void **)&bd, (const void **)&bs, &n);
-}
-
-FT_INLINE_HOT inline void	*ft_memmove(void *__restrict__ dest,
-	const void *__restrict__ src, size_t n)
-{
 	if ((!dest || !src || dest == src) && n != 0)
 		return (NULL);
 	if ((t_uptr)src < (t_uptr)dest
 		&& (t_uptr)src + n >= (t_uptr)dest)
-		b(dest, src, n);
+	{
+		bd = (t_u8 *)dest + n;
+		bs = (t_u8 *)src + n;
+		_copy_u128_fwd((void **)&bd, (const void **)&bs, &n);
+		_copy_u64_fwd((void **)&bd, (const void **)&bs, &n);
+		_copy_u32_fwd((void **)&bd, (const void **)&bs, &n);
+		_copy_u8_fwd((void **)&bd, (const void **)&bs, &n);
+	}
 	else
 		ft_memcpy(dest, src, n);
 	return (dest);
