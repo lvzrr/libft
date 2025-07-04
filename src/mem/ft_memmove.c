@@ -25,10 +25,10 @@ inline void	*ft_memmove(void *__restrict__ dest,
 	{
 		bd = (t_u8 *)dest + n;
 		bs = (t_u8 *)src + n;
-		_copy_u128_fwd((void **)&bd, (const void **)&bs, &n);
-		_copy_u64_fwd((void **)&bd, (const void **)&bs, &n);
-		_copy_u32_fwd((void **)&bd, (const void **)&bs, &n);
-		_copy_u8_fwd((void **)&bd, (const void **)&bs, &n);
+		_copy_u128_bw((void **)&bd, (const void **)&bs, &n);
+		_copy_u64_bw((void **)&bd, (const void **)&bs, &n);
+		_copy_u32_bw((void **)&bd, (const void **)&bs, &n);
+		_copy_u8_bw((void **)&bd, (const void **)&bs, &n);
 	}
 	else
 		ft_memcpy(dest, src, n);

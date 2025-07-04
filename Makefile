@@ -24,7 +24,7 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
 	@$(AR) $@ $^
