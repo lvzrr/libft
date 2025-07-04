@@ -84,61 +84,32 @@ void			_copy_u128_bw(void **__restrict__ dest,
 
 // OVERWRITING
 
-void			_write_u8_fwd(void *__restrict__ dest,
+void			_write_u8_fwd(void **__restrict__ dest,
 					t_u8 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_write_u32_fwd(void *__restrict__ dest,
+					size_t *__restrict__ n);
+void			_write_u32_fwd(void **__restrict__ dest,
 					t_u32 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_write_u64_fwd(void *__restrict__ dest,
+					size_t *__restrict__ n);
+void			_write_u64_fwd(void **__restrict__ dest,
 					t_u64 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			_write_u128_fwd(void *__restrict__ dest,
+					size_t *__restrict__ n);
+void			_write_u128_fwd(void **__restrict__ dest,
 					t_u128 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-
-// LOOKUP
-
-void			*_look4_u8_fwd(void *__restrict__ ptr,
-					t_u8 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			*_look4_u32_fwd(void *__restrict__ ptr,
-					t_u32 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			*_look4_u64_fwd(void *__restrict__ ptr,
-					t_u64 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-void			*_look4_u128_fwd(void *__restrict__ ptr,
-					t_u128 x,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-
-void			*_look4_u8_fwd_unsafe(void *__restrict__ ptr,
-					t_u8 x,
-					size_t *__restrict__ i);
-void			*_look4_u32_fwd_unsafe(void *__restrict__ ptr,
-					t_u32 x,
-					size_t *__restrict__ i);
-void			*_look4_u64_fwd_unsafe(void *__restrict__ ptr,
-					t_u64 x,
-					size_t *__restrict__ i);
-void			*_look4_u128_fwd_unsafe(void *__restrict__ ptr,
-					t_u128 x,
-					size_t *__restrict__ i);
-
+					size_t *__restrict__ n);
 // CMP
 
-ssize_t			_cmp_u8(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-ssize_t			_cmp_u32(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-ssize_t			_cmp_u64(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
-ssize_t			_cmp_u128(void *__restrict__ dest,
-					const void *__restrict__ src,
-					size_t *__restrict__ n, size_t *__restrict__ i);
+ssize_t			_cmp_u8(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+ssize_t			_cmp_u32(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+ssize_t			_cmp_u64(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
+ssize_t			_cmp_u128(void **__restrict__ dest,
+					const void **__restrict__ src,
+					size_t *__restrict__ n);
 
 // LIL' HELPERS
 
@@ -153,8 +124,7 @@ t_u128			__populate(t_u8 y);
 t_u8			ft_memctz_u32(t_u32 x);
 t_u8			ft_memctz_u64(t_u64 x);
 t_u8			ft_memctz_u128(t_u128 x);
-t_u8			_aligned(const void *__restrict__ dest,
-					const void *__restrict__ src, size_t *i);
+
 size_t			__max_s(size_t x, size_t y);
 t_u8			__maxu8(t_u8 x, t_u8 y);
 t_u32			__maxu32(t_u32 x, t_u32 y);

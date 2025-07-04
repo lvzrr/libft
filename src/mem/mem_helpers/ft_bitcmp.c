@@ -58,29 +58,3 @@ inline int	_lookup_u128(t_u128 word, t_u128 mask)
 		return (64 + lkup);
 	return (-1);
 }
-
-FT_INLINE inline void	*_look4_u8_fwd(void *__restrict__ ptr,
-	t_u8 x,
-	size_t *__restrict__ n, size_t *__restrict__ i)
-{
-	t_u8	*d;
-
-	d = (t_u8 *) ptr + *i;
-	while (*n >= 2)
-	{
-		if (*d++ == x)
-			return ((t_u8 *)d - 1);
-		if (*d++ == x)
-			return ((t_u8 *)d - 1);
-		(*n) -= 2;
-		(*i) += 2;
-	}
-	while (*n > 0)
-	{
-		if (*d++ == x)
-			return ((t_u8 *)d - 1);
-		(*n)--;
-		(*i)++;
-	}
-	return (NULL);
-}

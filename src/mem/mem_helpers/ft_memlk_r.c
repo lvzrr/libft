@@ -38,7 +38,7 @@ FT_INLINE inline void	*_look4_u32_fwd(void *__restrict__ ptr,
 	t_u32	*d;
 	int		lk;
 
-	d = (t_u32 *) __builtin_assume_aligned(ptr, 4) + *i;
+	d = (t_u32 *) ptr + *i;
 	while (*n >= sizeof(t_u32) * 2)
 	{
 		lk = _lookup_u32(*d++, x);
@@ -68,7 +68,7 @@ FT_INLINE inline void	*_look4_u64_fwd(void *__restrict__ ptr,
 	t_u64	*d;
 	int		lk;
 
-	d = (t_u64 *) __builtin_assume_aligned(ptr, 8) + *i;
+	d = (t_u64 *) ptr + *i;
 	while (*n >= sizeof(t_u64) * 2)
 	{
 		lk = _lookup_u64(*d++, x);
@@ -98,7 +98,7 @@ FT_INLINE inline void	*_look4_u128_fwd(void *__restrict__ ptr,
 	t_u128	*d;
 	int		lk;
 
-	d = (t_u128 *) __builtin_assume_aligned(ptr, 8) + *i;
+	d = (t_u128 *) ptr + *i;
 	while (*n >= sizeof(t_u128) * 2)
 	{
 		lk = _lookup_u128(*d++, x);
