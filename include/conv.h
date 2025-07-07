@@ -11,4 +11,5 @@ int				ft_atoi_base(char *str, char *base, int base_len);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(int n, char *base);
 char			*ft_utoa_base(size_t n, char *base);
+size_t			ft_atoul(const char *str);
 #endif
