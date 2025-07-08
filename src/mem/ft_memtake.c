@@ -5,6 +5,6 @@ void	ft_memtake(void *__restrict__ dst,
 {
 	if (!dst || !src || !len)
 		return ;
-	ft_memcpy(dst, src, len);
+	ft_memmove(dst, src, len);
 	ft_bzero(src, len);
 }

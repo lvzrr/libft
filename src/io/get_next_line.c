@@ -14,11 +14,11 @@ t_string	get_next_line(int fd)
 		if (!out.data)
 			return ((t_string){0});
 	}
-	c = ft_fgetc(fd);
+	c = ft_fgetc(fd, false);
 	while (c != EOF && c != '\n')
 	{
 		ft_tstr_push(&out, c);
-		c = ft_fgetc(fd);
+		c = ft_fgetc(fd, false);
 	}
 	if (c == '\n')
 		ft_tstr_push(&out, c);

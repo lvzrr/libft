@@ -25,4 +25,5 @@ char			ft_tstr_pop(t_string *str);
 void			ft_tstr_repeat(t_string *str, const char *chunk,
 					size_t times);
 t_string		ft_tstr_clone(t_string *s);
+char			*ft_tstr_strrchr(const t_string *haystack, int needle);;
 #endif

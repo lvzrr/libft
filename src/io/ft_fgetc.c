@@ -2,26 +2,27 @@
 
 static inline void	readbuf(t_string *store, int fd, size_t *off)
 {
-	t_u8		buffer[BUFSIZE];
 	ssize_t		res;
 
-	res = read(fd, buffer, BUFSIZE);
+	res = read(fd, store->data, BUFSIZE);
 	if (res < 0)
 	{
 		ft_tstr_free(store);
 		*off = 0;
 		return ;
 	}
-	ft_tstr_pushslice(store, (const char *)buffer, res);
+	store->len = res;
 }
 
-int	ft_fgetc(int fd)
+int	ft_fgetc(int fd, bool clean)
 {
 	static t_string	store = {0};
 	static size_t	offset = {0};
 
 	if (fd < 0)
 		return (EOF);
+	if (clean && store.len)
+		return (ft_tstr_free(&store), offset = 0, EOF);
 	if (!store.alloc_size)
 	{
 		store = ft_tstr_new(BUFSIZE);
@@ -37,5 +38,5 @@ int	ft_fgetc(int fd)
 	if (store.len)
 		return ((unsigned char)store.data[offset++]);
 	else
-		return (ft_tstr_free(&store), EOF);
+		return (offset = 0, ft_tstr_free(&store), EOF);
 }

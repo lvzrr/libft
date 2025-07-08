@@ -27,5 +27,6 @@ void			ft_printptr_fd(unsigned long p, int *c, int fd);
 int				ft_printf(const char *fmt, ...);
 void			ft_printhex_fd(unsigned int x, const char *set, int *l, int fd);
 int				ft_fprintf(int fd, const char *fmt, ...);
-int				ft_fgetc(int fd);
+int				ft_fgetc(int fd, bool clean);
+t_string		ft_readline(t_string *prompt, bool c);
 #endif
