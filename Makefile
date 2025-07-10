@@ -1,5 +1,5 @@
 NAME		:=	libft.a
-CC			:=	cc
+CC			:=	clang
 FLAGS		:=	-Wall -Wextra -Werror
 AR			:=	ar rcs
 OBJDIR		:=	build
@@ -12,7 +12,7 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@ -Iinclude
+	$(CC) -v $(FLAGS) -c $< -o $@ -Iinclude
 
 $(NAME): $(OBJS)
 	@$(AR) $@ $^

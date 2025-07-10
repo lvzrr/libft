@@ -1,6 +1,7 @@
 #ifndef IO_H
 # define IO_H
 # include <stdarg.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
