@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_isxdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:13:42 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:13:48 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/07/28 00:46:25 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/07/28 00:47:54 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mem.h"
+#include "ctype.h"
 
-void	ft_bzero(void *__restrict__ ptr, size_t n)
+bool	ft_isxdigit(int c)
 {
-	ft_memset(ptr, 0, n);
+	return ((c >= 'a' && c <= 'f') || (c >= '0' && c <= '9')
+		|| (c >= 'A' && c <= 'F'));
 }

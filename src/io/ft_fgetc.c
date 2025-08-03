@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fgetc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "io.h"
 
 static inline void	readbuf(t_string *store, int fd, size_t *off)
@@ -21,7 +33,7 @@ int	ft_fgetc(int fd, bool clean)
 
 	if (fd < 0)
 		return (EOF);
-	if (clean && store.len)
+	if (clean && store.alloc_size)
 		return (ft_tstr_free(&store), offset = 0, EOF);
 	if (!store.alloc_size)
 	{

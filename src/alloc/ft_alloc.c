@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_alloc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 17:13:41 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/07/16 17:13:46 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "alloc.h"
 
-__attribute__((malloc))
 void	*ft_alloc_align(size_t size, size_t align)
 {
 	void	*tab;
@@ -23,7 +34,6 @@ void	*ft_alloc_align(size_t size, size_t align)
 	return (((void **)ac)[-1] = tab, ac);
 }
 
-__attribute__((malloc))
 void	*ft_alloc(size_t size)
 {
 	void	*new_alloc;

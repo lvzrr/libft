@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cstr.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 17:14:01 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/07/16 17:14:02 by jaicastr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CSTR_H
 # define CSTR_H
 # include <unistd.h>
@@ -5,6 +17,7 @@
 # include <sys/types.h>
 # include <stdint.h>
 # include "structs.h"
+# include "ctype.h"
 # include "alloc.h"
 # include "mem.h"
 
@@ -28,4 +41,5 @@ char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			**ft_split(const char *str, char set);
 int				ft_strcmp(const char *a, const char *b);
 t_u8			ft_isnumeric(const char *__restrict__ s);
+bool			ft_s_isblob(char *s);
 #endif
