@@ -33,6 +33,8 @@
 # define ZEROS_64 0x0000000000000000ULL
 # define LONES_32  0x01010101U
 # define HIGHS_32  0x80808080U
+# define HASH_SEED 0xCCAAF344FDULL
+# define HASH_PRIME 0xD0C76E161D9FULL
 
 /**
  * @brief Sets a block of memory to zero.
@@ -286,4 +288,8 @@ t_u32			__maxu32(t_u32 x, t_u32 y);
 t_u64			__maxu64(t_u64 x, t_u64 y);
 t_u128			__maxu128(t_u128 x, t_u128 y);
 
+/*
+ *	HASHER
+ */
+t_u128			ft_hash(t_u8 *bytes, size_t n);
 #endif

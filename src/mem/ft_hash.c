@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lft.h                                              :+:      :+:    :+:   */
+/*   ft_hash.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaicastr <jaicastr@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:14:00 by jaicastr          #+#    #+#             */
-/*   Updated: 2025/07/16 17:14:02 by jaicastr         ###   ########.fr       */
+/*   Created: 2025/08/04 01:00:41 by jaicastr          #+#    #+#             */
+/*   Updated: 2025/08/04 01:02:29 by jaicastr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LFT_H
-# define LFT_H
+#include "mem.h"
 
-# include "structs.h"
-# include "cstr.h"
-# include "tstr.h"
-# include "mem.h"
-# include "math.h"
-# include "ctype.h"
-# include "put.h"
-# include "io.h"
-# include "lst.h"
-# include "conv.h"
-# include "vec.h"
-# include "macros.h"
+t_u128	ft_hash(t_u8 *__restrict__ bytes, size_t n)
+{
+	t_u128	hash;
+	t_u128	x;
+	size_t	i;
 
-#endif
+	hash = HASH_SEED;
+	i = 0;
+	while (i < n)
+	{
+		x = __populate(*bytes++);
+		x |= (x == 0) * (HASH_PRIME * ~hash);
+		hash ^= ~x;
+		hash *= (HASH_PRIME * ++i) * hash * x;
+		hash = (hash << 13) | (hash >> (128 - 13));
+	}
+	return (hash);
+}

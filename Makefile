@@ -95,6 +95,7 @@ SRCS		:=	src/ctype/ft_isprint.c\
 				src/conv/ft_itoa.c\
 				src/conv/ft_atoi_base.c\
 				src/mem/ft_memcpy.c\
+				src/mem/ft_hash.c\
 				src/mem/ft_memmove.c\
 				src/mem/ft_memswap.c\
 				src/mem/ft_memformat.c\
@@ -222,6 +223,7 @@ OBJS		:=	build/ctype/ft_isprint.o\
 				build/conv/ft_itoa.o\
 				build/conv/ft_atoi_base.o\
 				build/mem/ft_memcpy.o\
+				build/mem/ft_hash.o\
 				build/mem/ft_memmove.o\
 				build/mem/ft_memswap.o\
 				build/mem/ft_memformat.o\
