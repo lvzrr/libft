@@ -20,13 +20,14 @@ t_u128	ft_hash(t_u8 *__restrict__ bytes, size_t n)
 
 	hash = HASH_SEED;
 	i = 0;
-	while (i < n)
+	while (i++ < n)
 	{
-		x = __populate(*bytes++);
-		x |= (x == 0) * (HASH_PRIME * ~hash);
-		hash ^= ~x;
-		hash *= (HASH_PRIME * ++i) * hash * x;
+		x = *bytes << 8 | *bytes << 16
+			| (t_u64) * bytes << 32 | (t_u128) * bytes << 64;
+		hash ^= ~x * HASH_PRIME;
+		hash *= hash;
 		hash = (hash << 13) | (hash >> (128 - 13));
+		++bytes;
 	}
 	return (hash);
 }
