@@ -32,10 +32,9 @@ t_u128	ft_hash(t_u8 *__restrict__ bytes, size_t n)
 	i = 0;
 	while (i++ < n)
 	{
-		hash ^= table[*bytes];
+		hash ^= table[*bytes++];
 		hash ^= hash << 64;
 		hash = (hash << 5) | (hash >> (128 - 5));
-		++bytes;
 	}
 	return (hash);
 }
