@@ -26,7 +26,7 @@ t_u128	ft_hash(t_u8 *__restrict__ bytes, size_t n)
 			| (t_u64) * bytes << 32 | (t_u128) * bytes << 64;
 		hash ^= ~x * HASH_PRIME;
 		hash *= hash;
-		hash = (hash << 13) | (hash >> (128 - 13));
+		hash = (hash << 5) | (hash >> (128 - 5));
 		++bytes;
 	}
 	return (hash);
